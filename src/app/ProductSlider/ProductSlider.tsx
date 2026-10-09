@@ -71,7 +71,9 @@ export const ProductsSlider = ({ title, products: customProducts }: Props) => {
               item => item.itemId === product.itemId || item.id === product.id,
             );
             const isInCart = cartItems.some(
-              item => item.product.itemId === product.itemId || item.product.id === product.id,
+              item =>
+                item.product.itemId === product.itemId ||
+                item.product.id === product.id,
             );
 
             return (
@@ -80,41 +82,90 @@ export const ProductsSlider = ({ title, products: customProducts }: Props) => {
                   <Link
                     to={`/${product.category}/${product.itemId}`}
                     className={style['gadget-link']}
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    onClick={() =>
+                      window.scrollTo({ top: 0, behavior: 'smooth' })
+                    }
                   >
                     <div className={style['gadget-img-box']}>
                       <img
-                        src={`/${product.image}`}
+                        src={`${product.image}`}
                         alt={product.name}
                         className={style['gadget-img']}
                       />
                     </div>
-                    <p className={classNames(style['gadget-title'], 'body-text')}>{product.name}</p>
+                    <p
+                      className={classNames(style['gadget-title'], 'body-text')}
+                    >
+                      {product.name}
+                    </p>
 
                     <div className={style['price-block']}>
-                      <p className={classNames(style['gadget-price'], 'h3')}>${product.price}</p>
+                      <p className={classNames(style['gadget-price'], 'h3')}>
+                        ${product.price}
+                      </p>
                       {product.fullPrice > product.price && (
-                        <p className={classNames(style['gadget-price-sale'], 'h3')}>
+                        <p
+                          className={classNames(
+                            style['gadget-price-sale'],
+                            'h3',
+                          )}
+                        >
                           ${product.fullPrice}
                         </p>
                       )}
                     </div>
 
                     <div className={style['params-block']}>
-                      <p className={classNames(style['params-name'], 'small-text')}>Screen</p>
-                      <p className={classNames(style['params-value'], 'small-text')}>
+                      <p
+                        className={classNames(
+                          style['params-name'],
+                          'small-text',
+                        )}
+                      >
+                        Screen
+                      </p>
+                      <p
+                        className={classNames(
+                          style['params-value'],
+                          'small-text',
+                        )}
+                      >
                         {product.screen}
                       </p>
                     </div>
                     <div className={style['params-block']}>
-                      <p className={classNames(style['params-name'], 'small-text')}>Capacity</p>
-                      <p className={classNames(style['params-value'], 'small-text')}>
+                      <p
+                        className={classNames(
+                          style['params-name'],
+                          'small-text',
+                        )}
+                      >
+                        Capacity
+                      </p>
+                      <p
+                        className={classNames(
+                          style['params-value'],
+                          'small-text',
+                        )}
+                      >
                         {product.capacity}
                       </p>
                     </div>
                     <div className={style['params-block']}>
-                      <p className={classNames(style['params-name'], 'small-text')}>RAM</p>
-                      <p className={classNames(style['params-value'], 'small-text')}>
+                      <p
+                        className={classNames(
+                          style['params-name'],
+                          'small-text',
+                        )}
+                      >
+                        RAM
+                      </p>
+                      <p
+                        className={classNames(
+                          style['params-value'],
+                          'small-text',
+                        )}
+                      >
                         {product.ram}
                       </p>
                     </div>
@@ -122,7 +173,9 @@ export const ProductsSlider = ({ title, products: customProducts }: Props) => {
                   <div className={style['add-buttons-block']}>
                     <button
                       type="button"
-                      className={isInCart ? 'button-standart active' : 'button-standart'}
+                      className={
+                        isInCart ? 'button-standart active' : 'button-standart'
+                      }
                       onClick={e => {
                         e.preventDefault();
                         dispatch(addToCart(product));
@@ -139,9 +192,15 @@ export const ProductsSlider = ({ title, products: customProducts }: Props) => {
                       }}
                     >
                       {isFavorite ? (
-                        <img src="/img/icons/favouritesActive.svg" alt="Active favourite" />
+                        <img
+                          src="img/icons/favouritesActive.svg"
+                          alt="Active favourite"
+                        />
                       ) : (
-                        <img src="/img/icons/favourites.svg" alt="Add to favourites" />
+                        <img
+                          src="img/icons/favourites.svg"
+                          alt="Add to favourites"
+                        />
                       )}
                     </button>
                   </div>

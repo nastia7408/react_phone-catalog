@@ -12,7 +12,7 @@ export const Footer = () => {
       <div className="container">
         <nav className={style.nav}>
           <NavLink to="/" className={style.nav__logo}>
-            <img src="/img/icons/logo.svg" alt="logo" />
+            <img src="img/icons/logo.svg" alt="logo" />
           </NavLink>
 
           <ul className={style.nav__list}>
@@ -48,10 +48,14 @@ export const Footer = () => {
             </li>
           </ul>
 
-          <button type="button" className={style.nav__backToTop} onClick={handleScrollToTop}>
+          <button
+            type="button"
+            className={style.nav__backToTop}
+            onClick={handleScrollToTop}
+          >
             <p className="small-text">Back to top</p>
             <div className={style.nav__backToTop__icon}>
-              <img src="/img/icons/top.svg" alt="arrow top" />
+              <img src="img/icons/top.svg" alt="arrow top" />
             </div>
           </button>
         </nav>

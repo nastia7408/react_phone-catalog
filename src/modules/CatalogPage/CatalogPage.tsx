@@ -24,17 +24,26 @@ const PER_PAGE_OPTIONS = [
   { value: 'all', label: 'All' },
 ];
 
-export const CatalogPage: React.FC<ProductDescriptionBlock> = ({ category, title }) => {
+export const CatalogPage: React.FC<ProductDescriptionBlock> = ({
+  category,
+  title,
+}) => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector(state => state.cart.items);
-  const { items: products, loading, hasError } = useAppSelector(state => state.products);
+  const {
+    items: products,
+    loading,
+    hasError,
+  } = useAppSelector(state => state.products);
   const favoriteItems = useAppSelector(state => state.favorites.items) || [];
   const [searchParams, setSearchParams] = useSearchParams();
   const sortBy = searchParams.get('sort') || 'age';
   const perPage = searchParams.get('perPage') || 'all';
   const currentPage = Number(searchParams.get('page')) || 1;
 
-  const updateParams = (newParamsObj: Record<string, string | number | null>) => {
+  const updateParams = (
+    newParamsObj: Record<string, string | number | null>,
+  ) => {
     const updatedParams = new URLSearchParams(searchParams);
 
     Object.entries(newParamsObj).forEach(([key, value]) => {
@@ -76,7 +85,15 @@ export const CatalogPage: React.FC<ProductDescriptionBlock> = ({ category, title
     } else if (selectedPage >= totalPages - 1) {
       range.push(1, '...', totalPages - 2, totalPages - 1, totalPages);
     } else {
-      range.push(1, '...', selectedPage - 1, selectedPage, selectedPage + 1, '...', totalPages);
+      range.push(
+        1,
+        '...',
+        selectedPage - 1,
+        selectedPage,
+        selectedPage + 1,
+        '...',
+        totalPages,
+      );
     }
 
     return range;
@@ -97,10 +114,15 @@ export const CatalogPage: React.FC<ProductDescriptionBlock> = ({ category, title
     }
   });
 
-  const itemsPerPage = perPage === 'all' ? sortedProducts.length : Number(perPage);
-  const totalPages = itemsPerPage > 0 ? Math.ceil(sortedProducts.length / itemsPerPage) : 1;
+  const itemsPerPage =
+    perPage === 'all' ? sortedProducts.length : Number(perPage);
+  const totalPages =
+    itemsPerPage > 0 ? Math.ceil(sortedProducts.length / itemsPerPage) : 1;
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const visibleProducts = sortedProducts.slice(startIndex, startIndex + itemsPerPage);
+  const visibleProducts = sortedProducts.slice(
+    startIndex,
+    startIndex + itemsPerPage,
+  );
 
   if (hasError) {
     return (
@@ -134,11 +156,13 @@ export const CatalogPage: React.FC<ProductDescriptionBlock> = ({ category, title
       <div className="container">
         <div className={style['navigation-block']}>
           <Link to="/">
-            <img src="/img/icons/home.svg" alt="Home" />
+            <img src="img/icons/home.svg" alt="Home" />
           </Link>
 
-          <img src="/img/icons/arrowrightdark.svg" alt="" />
-          <p className={classNames(style['title-navigation'], 'small-text')}>{title}</p>
+          <img src="img/icons/arrowrightdark.svg" alt="" />
+          <p className={classNames(style['title-navigation'], 'small-text')}>
+            {title}
+          </p>
         </div>
         <div>
           <h1 className={classNames(style.title, 'h1')}>{title} </h1>
@@ -169,10 +193,13 @@ export const CatalogPage: React.FC<ProductDescriptionBlock> = ({ category, title
           <div className={style.list}>
             {visibleProducts.map(product => {
               const isFavorite = favoriteItems.some(
-                item => item.itemId === product.itemId || item.id === product.id,
+                item =>
+                  item.itemId === product.itemId || item.id === product.id,
               );
               const isInCart = cartItems.some(
-                item => item.product.itemId === product.itemId || item.product.id === product.id,
+                item =>
+                  item.product.itemId === product.itemId ||
+                  item.product.id === product.id,
               );
 
               return (
@@ -183,43 +210,80 @@ export const CatalogPage: React.FC<ProductDescriptionBlock> = ({ category, title
                 >
                   <div className={style['gadget-img-box']}>
                     <img
-                      src={`/${product.image}`}
+                      src={`${product.image}`}
                       alt={product.name}
                       className={style['gadget-img']}
                     />
                   </div>
-                  <p className={classNames(style['gadget-title'], 'body-text')}>{product.name}</p>
+                  <p className={classNames(style['gadget-title'], 'body-text')}>
+                    {product.name}
+                  </p>
 
                   <div className={style['price-block']}>
-                    <p className={classNames(style['gadget-price'], 'h3')}>${product.price}</p>
+                    <p className={classNames(style['gadget-price'], 'h3')}>
+                      ${product.price}
+                    </p>
                     {product.fullPrice > product.price && (
-                      <p className={classNames(style['gadget-price-sale'], 'h3')}>
+                      <p
+                        className={classNames(style['gadget-price-sale'], 'h3')}
+                      >
                         ${product.fullPrice}
                       </p>
                     )}
                   </div>
 
                   <div className={style['params-block']}>
-                    <p className={classNames(style['params-name'], 'small-text')}>Screen</p>
-                    <p className={classNames(style['params-value'], 'small-text')}>
+                    <p
+                      className={classNames(style['params-name'], 'small-text')}
+                    >
+                      Screen
+                    </p>
+                    <p
+                      className={classNames(
+                        style['params-value'],
+                        'small-text',
+                      )}
+                    >
                       {product.screen}
                     </p>
                   </div>
                   <div className={style['params-block']}>
-                    <p className={classNames(style['params-name'], 'small-text')}>Capacity</p>
-                    <p className={classNames(style['params-value'], 'small-text')}>
+                    <p
+                      className={classNames(style['params-name'], 'small-text')}
+                    >
+                      Capacity
+                    </p>
+                    <p
+                      className={classNames(
+                        style['params-value'],
+                        'small-text',
+                      )}
+                    >
                       {product.capacity}
                     </p>
                   </div>
                   <div className={style['params-block']}>
-                    <p className={classNames(style['params-name'], 'small-text')}>RAM</p>
-                    <p className={classNames(style['params-value'], 'small-text')}>{product.ram}</p>
+                    <p
+                      className={classNames(style['params-name'], 'small-text')}
+                    >
+                      RAM
+                    </p>
+                    <p
+                      className={classNames(
+                        style['params-value'],
+                        'small-text',
+                      )}
+                    >
+                      {product.ram}
+                    </p>
                   </div>
 
                   <div className={style['add-buttons-block']}>
                     <button
                       type="button"
-                      className={isInCart ? 'button-standart active' : 'button-standart'}
+                      className={
+                        isInCart ? 'button-standart active' : 'button-standart'
+                      }
                       onClick={e => {
                         e.preventDefault();
                         dispatch(addToCart(product));
@@ -236,9 +300,15 @@ export const CatalogPage: React.FC<ProductDescriptionBlock> = ({ category, title
                       }}
                     >
                       {isFavorite ? (
-                        <img src="/img/icons/favouritesActive.svg" alt="Active favourite" />
+                        <img
+                          src="img/icons/favouritesActive.svg"
+                          alt="Active favourite"
+                        />
                       ) : (
-                        <img src="/img/icons/favourites.svg" alt="Add to favourites" />
+                        <img
+                          src="img/icons/favourites.svg"
+                          alt="Add to favourites"
+                        />
                       )}
                     </button>
                   </div>
@@ -255,30 +325,32 @@ export const CatalogPage: React.FC<ProductDescriptionBlock> = ({ category, title
               disabled={currentPage === 1}
               onClick={() => handlePageChange(currentPage - 1)}
             >
-              <img src="/img/icons/arrowleft.svg" alt="Previous" />
+              <img src="img/icons/arrowleft.svg" alt="Previous" />
             </button>
 
             <div className={style['pages-number-block']}>
-              {getPaginationRange(currentPage, totalPages).map((page, index) => {
-                if (page === '...') {
-                  return (
-                    <span key={`dots-${index}`} className="button-page dots">
-                      ...
-                    </span>
-                  );
-                }
+              {getPaginationRange(currentPage, totalPages).map(
+                (page, index) => {
+                  if (page === '...') {
+                    return (
+                      <span key={`dots-${index}`} className="button-page dots">
+                        ...
+                      </span>
+                    );
+                  }
 
-                return (
-                  <button
-                    key={page}
-                    type="button"
-                    className={`button-page ${currentPage === page ? 'active' : ''}`}
-                    onClick={() => handlePageChange(Number(page))}
-                  >
-                    {page}
-                  </button>
-                );
-              })}
+                  return (
+                    <button
+                      key={page}
+                      type="button"
+                      className={`button-page ${currentPage === page ? 'active' : ''}`}
+                      onClick={() => handlePageChange(Number(page))}
+                    >
+                      {page}
+                    </button>
+                  );
+                },
+              )}
             </div>
 
             <button
@@ -287,7 +359,7 @@ export const CatalogPage: React.FC<ProductDescriptionBlock> = ({ category, title
               disabled={currentPage === totalPages}
               onClick={() => handlePageChange(currentPage + 1)}
             >
-              <img src="/img/icons/arrowright.svg" alt="Next" />
+              <img src="img/icons/arrowright.svg" alt="Next" />
             </button>
           </div>
         )}

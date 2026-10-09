@@ -4,20 +4,20 @@ import { useEffect, useState } from 'react';
 
 const BANNERS = [
   {
-    desktop: '/img/banner.svg',
-    mobile: '/img/banner-mobile.svg',
+    desktop: 'img/banner.svg',
+    mobile: 'img/banner-mobile.svg',
     alt: 'iPhone 14 Pro offer',
   },
   {
-    desktop: '/img/banner-phones.png',
+    desktop: 'img/banner-phones.png',
     alt: 'Phones offer',
   },
   {
-    desktop: '/img/banner-tablets.png',
+    desktop: 'img/banner-tablets.png',
     alt: 'Tablets offer',
   },
   {
-    desktop: '/img/banner-accessories.png',
+    desktop: 'img/banner-accessories.png',
     alt: 'Accessories offer',
   },
 ];
@@ -44,19 +44,24 @@ export const PictureSlide = () => {
   return (
     <div className={style.pictureSlide}>
       <h1 className={style.visuallyHidden}>Product Catalog</h1>
-      <p className={classNames(style.title, 'h1')}>Welcome to Nice Gadgets store!</p>
+      <p className={classNames(style.title, 'h1')}>
+        Welcome to Nice Gadgets store!
+      </p>
       <div className={style.bannerBlock}>
         <button
           type="button"
           className={classNames(style['nav-btn'], style.prev)}
           onClick={handlePrev}
         >
-          <img src="/img/icons/arrowleft.svg" alt="Previous slide" />
+          <img src="img/icons/arrowleft.svg" alt="Previous slide" />
         </button>
 
         <div className={style.bannerContent}>
           <picture>
-            <source media="(max-width: 639px)" srcSet={BANNERS[currentIndex].mobile} />
+            <source
+              media="(max-width: 639px)"
+              srcSet={BANNERS[currentIndex].mobile}
+            />
             <img
               src={BANNERS[currentIndex].desktop}
               alt={BANNERS[currentIndex].alt}
@@ -70,7 +75,7 @@ export const PictureSlide = () => {
           className={classNames(style['nav-btn'], style.next)}
           onClick={handleNext}
         >
-          <img src="/img/icons/arrowright.svg" alt="img" />
+          <img src="img/icons/arrowright.svg" alt="img" />
         </button>
       </div>
       <div className={style.pagination}>

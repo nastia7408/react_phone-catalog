@@ -5,7 +5,6 @@ import { HomePage } from './modules/HomePage/HomePage';
 import { FavoritesPage } from './modules/FavoritesPage/FavoritesPage';
 import { CartPage } from './modules/CartPage/CartPage';
 import { Footer } from './modules/shared/Footer/Footer';
-import { ProductDetailsPage } from './modules/ProductDetailsPage/ProductDetailsPage';
 import { CatalogPage } from './modules/CatalogPage/CatalogPage';
 import { NotFoundPage } from './modules/NotFoundPage/NotFoundPage';
 import { ScrollToTop } from './app/ScrollToTop';
@@ -13,6 +12,8 @@ import { useEffect } from 'react';
 import { fetchProducts } from './features/productsSlice';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { Loader } from './app/Loader/Loader';
+// eslint-disable-next-line max-len
+import { ProductDetailsPage } from './modules/ProductDetailsPage/ProductDetailsPage';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -40,7 +41,11 @@ export const App = () => {
     return (
       <div className="page container error-block">
         <p>Something went wrong</p>
-        <button type="button" className="button-standart" onClick={() => dispatch(fetchProducts())}>
+        <button
+          type="button"
+          className="button-standart"
+          onClick={() => dispatch(fetchProducts())}
+        >
           Reload
         </button>
       </div>
@@ -57,15 +62,26 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/home" element={<Navigate to="/" replace />} />
-            <Route path="/phones" element={<CatalogPage category="phones" title="Phones" />} />
-            <Route path="/tablets" element={<CatalogPage category="tablets" title="Tablets" />} />
+            <Route
+              path="/phones"
+              element={<CatalogPage category="phones" title="Phones" />}
+            />
+            <Route
+              path="/tablets"
+              element={<CatalogPage category="tablets" title="Tablets" />}
+            />
             <Route
               path="/accessories"
-              element={<CatalogPage category="accessories" title="Accessories" />}
+              element={
+                <CatalogPage category="accessories" title="Accessories" />
+              }
             />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="/:category/:productId" element={<ProductDetailsPage />} />
+            <Route
+              path="/:category/:productId"
+              element={<ProductDetailsPage />}
+            />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>

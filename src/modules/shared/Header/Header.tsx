@@ -12,7 +12,10 @@ export const Header = () => {
   const cartItems = useAppSelector(state => state.cart.items) || [];
   const favoriteItems = useAppSelector(state => state.favorites.items) || [];
 
-  const totalCartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const totalCartCount = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0,
+  );
   const totalFavoritesCount = favoriteItems.length;
 
   useEffect(() => {
@@ -24,7 +27,11 @@ export const Header = () => {
       <nav className={style.nav}>
         <div className={style.nav__left}>
           <NavLink to="/" className={style.nav__logo}>
-            <img src="/img/icons/logo.svg" alt="logo" className={style.nav__logo__img} />
+            <img
+              src="img/icons/logo.svg"
+              alt="logo"
+              className={style.nav__logo__img}
+            />
           </NavLink>
 
           <ul className={style.nav__list}>
@@ -113,8 +120,14 @@ export const Header = () => {
             >
               <div className={style.nav__icon_wrapper}>
                 <div className={style.iconContainer}>
-                  <img src="/img/icons/cart.svg" alt="Cart" className={style.iconContainer__img} />
-                  {totalCartCount > 0 && <span className={style.badge}>{totalCartCount}</span>}
+                  <img
+                    src="img/icons/cart.svg"
+                    alt="Cart"
+                    className={style.iconContainer__img}
+                  />
+                  {totalCartCount > 0 && (
+                    <span className={style.badge}>{totalCartCount}</span>
+                  )}
                 </div>
               </div>
             </NavLink>
@@ -131,7 +144,10 @@ export const Header = () => {
             aria-label="Toggle menu"
           >
             <div className={style.nav__icon_wrapper}>
-              <img src={isMenuOpen ? '/img/icons/close.svg' : 'img/icons/menu.svg'} alt="menu" />
+              <img
+                src={isMenuOpen ? 'img/icons/close.svg' : 'img/icons/menu.svg'}
+                alt="menu"
+              />
             </div>
           </button>
         </div>

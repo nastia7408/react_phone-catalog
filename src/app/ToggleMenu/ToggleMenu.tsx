@@ -8,7 +8,10 @@ export const ToggleMenu = () => {
   const cartItems = useAppSelector(state => state.cart?.items) || [];
   const favoriteItems = useAppSelector(state => state.favorites?.items) || [];
 
-  const totalCartCount = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+  const totalCartCount = cartItems.reduce(
+    (total, item) => total + (item.quantity || 1),
+    0,
+  );
   const totalFavoritesCount = favoriteItems.length;
 
   useEffect(() => {
@@ -105,8 +108,14 @@ export const ToggleMenu = () => {
         >
           <div className={style.nav__icon_wrapper}>
             <div className={style.iconContainer}>
-              <img src="img/icons/cart.svg" alt="Cart" className={style.iconContainer__img} />
-              {totalCartCount > 0 && <span className={style.badge}>{totalCartCount}</span>}
+              <img
+                src="img/icons/cart.svg"
+                alt="Cart"
+                className={style.iconContainer__img}
+              />
+              {totalCartCount > 0 && (
+                <span className={style.badge}>{totalCartCount}</span>
+              )}
             </div>
           </div>
         </NavLink>

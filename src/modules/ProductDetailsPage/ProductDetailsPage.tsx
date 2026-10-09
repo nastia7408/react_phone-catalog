@@ -39,7 +39,7 @@ export const ProductDetailsPage = () => {
     setLoading(true);
     setError(false);
 
-    fetch(`/api/${category}.json`)
+    fetch(`${import.meta.env.BASE_URL}/api/${category}.json`)
       .then(res => {
         if (!res.ok) {
           throw new Error(`Failed to fetch ${category}.json`);
@@ -76,14 +76,6 @@ export const ProductDetailsPage = () => {
     return [...filtered].sort(() => 0.5 - Math.random());
   }, [globalProducts, category, productId]);
 
-  if (error || !product) {
-    return (
-      <div className="page container">
-        <p className="h2">Product was not found</p>
-      </div>
-    );
-  }
-
   const handleColorChange = (newColor: string) => {
     if (!product || newColor === product.color) {
       return;
@@ -116,8 +108,6 @@ export const ProductDetailsPage = () => {
     }
   };
 
-  const mainImage = selectedImage || product.images?.[0] || '';
-
   if (loading) {
     return (
       <div className="page container">
@@ -127,20 +117,26 @@ export const ProductDetailsPage = () => {
   }
 
   if (error || !product) {
-    return <div>Product not found or failed to load.</div>;
+    return (
+      <div className="page container">
+        <p className="h2">Product was not found</p>
+      </div>
+    );
   }
+
+  const mainImage = selectedImage || product.images?.[0] || '';
 
   return (
     <div className="container">
       <div className={style['navigation-block']}>
         <Link to="/">
-          <img src="/img/icons/home.svg" alt="Home" />
+          <img src="img/icons/home.svg" alt="Home" />
         </Link>
-        <img src="/img/icons/arrowrightdark.svg" alt="" />
+        <img src="img/icons/arrowrightdark.svg" alt="" />
         <Link to={`/${product.category}`} className="title-navigation">
           {product.category}
         </Link>
-        <img src="/img/icons/arrowrightdark.svg" alt="" />
+        <img src="img/icons/arrowrightdark.svg" alt="" />
         <p className="title-navigation">{product.name}</p>
       </div>
       <div
@@ -148,7 +144,11 @@ export const ProductDetailsPage = () => {
         onClick={() => navigate(-1)}
         style={{ cursor: 'pointer' }}
       >
-        <img src="/img/icons/arrowleft.svg" alt="Back" className={style['back-arrow']} />
+        <img
+          src="img/icons/arrowleft.svg"
+          alt="Back"
+          className={style['back-arrow']}
+        />
         <p className={classNames(style['back-title'], 'small-text')}>Back</p>
       </div>
       <p className={classNames(style['title-main'], 'h2')}>{product.name}</p>
@@ -161,18 +161,30 @@ export const ProductDetailsPage = () => {
                 className={style['picture-box']}
                 onClick={() => setSelectedImage(imgUrl)}
               >
-                <img className={style['small-picture']} src={`/${imgUrl}`} alt={product.name} />
+                <img
+                  className={style['small-picture']}
+                  src={`${imgUrl}`}
+                  alt={product.name}
+                />
               </div>
             ))}
           </div>
           <div className={style['right-data-photo']}>
-            <img className={style['big-picture']} src={`/${mainImage}`} alt={product.name} />
+            <img
+              className={style['big-picture']}
+              src={`${mainImage}`}
+              alt={product.name}
+            />
           </div>
         </div>
         <div className={style['gadget-info-block-text']}>
           <div className={style['space-between-block']}>
-            <p className={classNames(style.text, 'small-text')}>Available colors</p>
-            <p className={classNames(style.text, 'small-text')}>ID: {catalogProduct?.id}</p>
+            <p className={classNames(style.text, 'small-text')}>
+              Available colors
+            </p>
+            <p className={classNames(style.text, 'small-text')}>
+              ID: {catalogProduct?.id}
+            </p>
           </div>
           <div className={style['gadget-info-block-text-color']}>
             <div className={style['colors-block']}>
@@ -185,7 +197,9 @@ export const ProductDetailsPage = () => {
                 />
               ))}
             </div>
-            <p className={classNames(style.text, 'small-text')}>Select capacity</p>
+            <p className={classNames(style.text, 'small-text')}>
+              Select capacity
+            </p>
             <div className={style['capacity-block']}>
               {product.capacityAvailable?.map((cap: string) => (
                 <button
@@ -200,8 +214,12 @@ export const ProductDetailsPage = () => {
             </div>
             <div className={style['cart-block']}>
               <div className={style['cart-block-price']}>
-                <p className={classNames(style.price, 'h2')}>{product.priceDiscount}</p>
-                <p className={classNames(style.sale, 'h3')}>{product.priceRegular}</p>
+                <p className={classNames(style.price, 'h2')}>
+                  {product.priceDiscount}
+                </p>
+                <p className={classNames(style.sale, 'h3')}>
+                  {product.priceRegular}
+                </p>
               </div>
               <div className={style['buttons-block']}>
                 <button
@@ -217,25 +235,35 @@ export const ProductDetailsPage = () => {
                   onClick={handleFavoriteToggle}
                 >
                   {isFavorite ? (
-                    <img src="/img/icons/favouritesActive.svg" alt="Active favourite" />
+                    <img
+                      src="img/icons/favouritesActive.svg"
+                      alt="Active favourite"
+                    />
                   ) : (
-                    <img src="/img/icons/favourites.svg" alt="Add to favourites" />
+                    <img
+                      src="img/icons/favourites.svg"
+                      alt="Add to favourites"
+                    />
                   )}
                 </button>
               </div>
             </div>
             <div className={style['other-info-block']}>
-              <div className={classNames(style['left-data-info'], 'small-text')}>
-                <p>Screen</p>
-                <p>Resolution</p>
-                <p>Processor</p>
-                <p>RAM</p>
+              <div
+                className={classNames(style['left-data-info'], 'small-text')}
+              >
+                <p className="body-text">Screen</p>
+                <p className="body-text">Resolution</p>
+                <p className="body-text">Processor</p>
+                <p className="body-text">RAM</p>
               </div>
-              <div className={classNames(style['right-data-info'], 'small-text')}>
-                <p>{product.screen}</p>
-                <p>{product.resolution}</p>
-                <p>{product.processor}</p>
-                <p>{product.ram}</p>
+              <div
+                className={classNames(style['right-data-info'], 'small-text')}
+              >
+                <p className="body-text">{product.screen}</p>
+                <p className="body-text">{product.resolution}</p>
+                <p className="body-text">{product.processor}</p>
+                <p className="body-text">{product.ram}</p>
               </div>
             </div>
           </div>
@@ -244,12 +272,12 @@ export const ProductDetailsPage = () => {
 
       <div className={style['about-info-block']}>
         <div className={style['about-info-block-left']}>
-          <p className={(classNames(style.title1), 'h3')}>About</p>
+          <p className={classNames(style.title1, 'h3')}>About</p>
           {product.description?.map(block => (
             <div key={block.title}>
               <p className={classNames(style.title2, 'h4')}>{block.title}</p>
               {block.text.map((paragraph, idx) => (
-                <div key={idx} className={classNames(style.text, 'small-text')}>
+                <div key={idx} className={classNames(style.text, 'body-text')}>
                   {paragraph}
                 </div>
               ))}
@@ -257,32 +285,35 @@ export const ProductDetailsPage = () => {
           ))}
         </div>
         <div className={style['about-info-block-right']}>
-          <p className={(classNames(style.title1), 'h3')}>Tech specs</p>
+          <p className={classNames(style.title1, 'h3')}>Tech specs</p>
           <div className={style['other-info-block']}>
             <div className={style['left-data-info']}>
-              <p>Screen</p>
-              <p>Resolution</p>
-              <p>Processor</p>
-              <p>RAM</p>
-              <p>Camera</p>
-              <p>Zoom</p>
-              <p>Cell</p>
+              <p className="body-text">Screen</p>
+              <p className="body-text">Resolution</p>
+              <p className="body-text">Processor</p>
+              <p className="body-text">RAM</p>
+              <p className="body-text">Camera</p>
+              <p className="body-text">Zoom</p>
+              <p className="body-text">Cell</p>
             </div>
             <div className={style['right-data-info']}>
-              <p>{product.screen}</p>
-              <p>{product.resolution}</p>
-              <p>{product.processor}</p>
-              <p>{product.ram}</p>
-              <p>{product.camera}</p>
-              <p>{product.zoom}</p>
-              <p>{product.cell?.join(', ')}</p>
+              <p className="body-text">{product.screen}</p>
+              <p className="body-text">{product.resolution}</p>
+              <p className="body-text">{product.processor}</p>
+              <p className="body-text">{product.ram}</p>
+              <p className="body-text">{product.camera}</p>
+              <p className="body-text">{product.zoom}</p>
+              <p className="body-text">{product.cell?.join(', ')}</p>
             </div>
           </div>
         </div>
       </div>
       <div className={style.recommended}>
         {recommendedProducts.length > 0 && (
-          <ProductsSlider title="You may also like" products={recommendedProducts} />
+          <ProductsSlider
+            title="You may also like"
+            products={recommendedProducts}
+          />
         )}
       </div>
     </div>

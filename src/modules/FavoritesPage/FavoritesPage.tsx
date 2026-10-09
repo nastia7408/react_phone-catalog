@@ -16,10 +16,12 @@ export const FavoritesPage = () => {
       <div className="container">
         <div className={style['navigation-block']}>
           <Link to="/">
-            <img src="/img/icons/home.svg" alt="" />
+            <img src="img/icons/home.svg" alt="" />
           </Link>
-          <img src="/img/icons/arrowrightdark.svg" alt="" />
-          <p className={classNames(style['title-navigation'], 'small-text')}>Favourites</p>
+          <img src="img/icons/arrowrightdark.svg" alt="" />
+          <p className={classNames(style['title-navigation'], 'small-text')}>
+            Favourites
+          </p>
         </div>
         <div>
           <p className={classNames(style.title, 'h1')}>Favourites</p>
@@ -34,7 +36,9 @@ export const FavoritesPage = () => {
           <div className={style.list}>
             {favoritesItems.map(product => {
               const isInCart = cartItems.some(
-                item => item.product.itemId === product.itemId || item.product.id === product.id,
+                item =>
+                  item.product.itemId === product.itemId ||
+                  item.product.id === product.id,
               );
 
               return (
@@ -45,43 +49,78 @@ export const FavoritesPage = () => {
                 >
                   <div className={style['gadget-img-box']}>
                     <img
-                      src={`/${product.image}`}
+                      src={`${product.image}`}
                       alt={product.name}
                       className={style['gadget-img']}
                     />
                   </div>
-                  <p className={classNames(style['gadget-title'], 'body-text')}>{product.name}</p>
+                  <p className={classNames(style['gadget-title'], 'body-text')}>
+                    {product.name}
+                  </p>
 
                   <div className={style['price-block']}>
                     <p className={'h3'}>${product.price}</p>
 
                     {product.fullPrice > product.price && (
-                      <p className={classNames(style['gadget-price-sale'], 'h3')}>
+                      <p
+                        className={classNames(style['gadget-price-sale'], 'h3')}
+                      >
                         ${product.fullPrice}
                       </p>
                     )}
                   </div>
 
                   <div className={style['params-block']}>
-                    <p className={classNames(style['params-name'], 'small-text')}>Screen</p>
-                    <p className={classNames(style['params-value'], 'small-text')}>
+                    <p
+                      className={classNames(style['params-name'], 'small-text')}
+                    >
+                      Screen
+                    </p>
+                    <p
+                      className={classNames(
+                        style['params-value'],
+                        'small-text',
+                      )}
+                    >
                       {product.screen}
                     </p>
                   </div>
                   <div className={style['params-block']}>
-                    <p className={classNames(style['params-name'], 'small-text')}>Capacity</p>
-                    <p className={classNames(style['params-value'], 'small-text')}>
+                    <p
+                      className={classNames(style['params-name'], 'small-text')}
+                    >
+                      Capacity
+                    </p>
+                    <p
+                      className={classNames(
+                        style['params-value'],
+                        'small-text',
+                      )}
+                    >
                       {product.capacity}
                     </p>
                   </div>
                   <div className={style['params-block']}>
-                    <p className={classNames(style['params-name'], 'small-text')}>RAM</p>
-                    <p className={classNames(style['params-value'], 'small-text')}>{product.ram}</p>
+                    <p
+                      className={classNames(style['params-name'], 'small-text')}
+                    >
+                      RAM
+                    </p>
+                    <p
+                      className={classNames(
+                        style['params-value'],
+                        'small-text',
+                      )}
+                    >
+                      {product.ram}
+                    </p>
                   </div>
                   <div className={style['add-buttons-block']}>
                     <button
                       type="button"
-                      className={isInCart ? 'button-standart active' : 'button-standart'}
+                      className={
+                        isInCart ? 'button-standart active' : 'button-standart'
+                      }
                       onClick={e => {
                         e.preventDefault();
                         dispatch(addToCart(product));
@@ -97,7 +136,10 @@ export const FavoritesPage = () => {
                         dispatch(toggleFavorite(product));
                       }}
                     >
-                      <img src="/img/icons/favouritesActive.svg" alt="Remove from favorites" />
+                      <img
+                        src="img/icons/favouritesActive.svg"
+                        alt="Remove from favorites"
+                      />
                     </button>
                   </div>
                 </Link>

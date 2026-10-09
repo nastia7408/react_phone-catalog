@@ -15,7 +15,13 @@ interface Props {
   className?: string;
 }
 
-export const Dropdown: React.FC<Props> = ({ label, options, value, onChange, className }) => {
+export const Dropdown: React.FC<Props> = ({
+  label,
+  options,
+  value,
+  onChange,
+  className,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +29,10 @@ export const Dropdown: React.FC<Props> = ({ label, options, value, onChange, cla
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };

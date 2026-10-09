@@ -14,16 +14,22 @@ const initialState: ProductsState = {
   hasError: false,
 };
 
-export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
-  await new Promise(resolve => setTimeout(resolve, 500));
-  const response = await fetch('/api/products.json');
+export const fetchProducts = createAsyncThunk(
+  'products/fetchProducts',
+  async () => {
+    await new Promise(resolve => setTimeout(resolve, 500));
 
-  if (!response.ok) {
-    throw new Error('Failed to fetch products');
-  }
+    const response = await fetch(
+      `${import.meta.env.BASE_URL}/api/products.json`,
+    );
 
-  return response.json();
-});
+    if (!response.ok) {
+      throw new Error('Failed to fetch products');
+    }
+
+    return response.json();
+  },
+);
 
 export const productsSlice = createSlice({
   name: 'products',

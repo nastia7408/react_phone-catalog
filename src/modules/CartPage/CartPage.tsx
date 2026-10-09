@@ -3,7 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import style from './CartPage.module.scss';
 import '../../style/GlobalStyle.scss';
-import { removeFromCart, updateQuantity, clearCart } from '../../features/cartSlice';
+import {
+  removeFromCart,
+  updateQuantity,
+  clearCart,
+} from '../../features/cartSlice';
 import classNames from 'classnames';
 
 export const CartPage: React.FC = () => {
@@ -36,7 +40,11 @@ export const CartPage: React.FC = () => {
           onClick={() => navigate(-1)}
           style={{ cursor: 'pointer' }}
         >
-          <img src="/img/icons/arrowleft.svg" alt="Back" className={style['back-arrow']} />
+          <img
+            src="img/icons/arrowleft.svg"
+            alt="Back"
+            className={style['back-arrow']}
+          />
           <p className={classNames(style['back-title'], 'small-text')}>Back</p>
         </div>
 
@@ -68,7 +76,7 @@ export const CartPage: React.FC = () => {
                           dispatch(removeFromCart(targetId));
                         }}
                       >
-                        <img src="/img/icons/closedark.svg" alt="Remove" />
+                        <img src="img/icons/closedark.svg" alt="Remove" />
                       </button>
 
                       <Link
@@ -76,11 +84,16 @@ export const CartPage: React.FC = () => {
                         className={style['product-info']}
                       >
                         <img
-                          src={`/${product.image}`}
+                          src={`${product.image}`}
                           alt={product.name}
                           className={style['gadget-img']}
                         />
-                        <p className={classNames(style['gadget-title'], 'body-text')}>
+                        <p
+                          className={classNames(
+                            style['gadget-title'],
+                            'body-text',
+                          )}
+                        >
                           {product.name}
                         </p>
                       </Link>
@@ -105,7 +118,9 @@ export const CartPage: React.FC = () => {
                           -
                         </button>
 
-                        <div className={classNames(style.count, 'body-text')}>{quantity}</div>
+                        <div className={classNames(style.count, 'body-text')}>
+                          {quantity}
+                        </div>
 
                         <button
                           type="button"
@@ -123,7 +138,9 @@ export const CartPage: React.FC = () => {
                           +
                         </button>
                       </div>
-                      <p className={style['gadget-price']}>${product.price * quantity}</p>
+                      <p className={style['gadget-price']}>
+                        ${product.price * quantity}
+                      </p>
                     </div>
                   </div>
                 );
@@ -135,7 +152,8 @@ export const CartPage: React.FC = () => {
             <div className={style['total-price-block']}>
               <p className={classNames(style.price, 'h2')}>${totalPrice}</p>
               <p className={classNames(style.text, 'body-text')}>
-                Total for {totalQuantity} {totalQuantity === 1 ? 'item' : 'items'}
+                Total for {totalQuantity}{' '}
+                {totalQuantity === 1 ? 'item' : 'items'}
               </p>
               <button
                 type="button"
