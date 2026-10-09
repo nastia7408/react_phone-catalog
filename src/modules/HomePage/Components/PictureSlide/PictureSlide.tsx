@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import style from './PictureSlide.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const BANNERS = [
@@ -41,6 +41,14 @@ export const PictureSlide = () => {
   const handlePrev = () => {
     setCurrentIndex(prev => (prev - 1 + BANNERS.length) % BANNERS.length);
   };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      handleNext();
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const currentBanner = BANNERS[currentIndex];
 
