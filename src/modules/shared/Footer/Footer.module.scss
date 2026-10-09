@@ -2,6 +2,8 @@ $tablet-max: 1199px;
 $mobile-max: 639px;
 
 .footer {
+  display: flex;
+  align-items: center;
   height: 96px;
   border-top: 2px #323542 solid;
 }
@@ -43,7 +45,6 @@ $mobile-max: 639px;
     text-decoration: none;
     display: flex;
     align-items: center;
-    height: 96px;
     position: relative;
     color: #f1f2f9;
 
