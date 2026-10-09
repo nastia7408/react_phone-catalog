@@ -8,26 +8,22 @@ const BANNERS = [
     desktop: 'img/banner.svg',
     mobile: 'img/banner-mobile.svg',
     alt: 'iPhone 14 Pro offer',
-    link: '/phones/apple-iphone-14-pro-128gb-deep-purple',
-    hasButton: true,
+    link: '/phones/apple-iphone-14-128gb-purple',
   },
   {
     desktop: 'img/banner-phones.png',
     alt: 'Phones offer',
     link: '/phones',
-    hasButton: false,
   },
   {
     desktop: 'img/banner-tablets.png',
     alt: 'Tablets offer',
     link: '/tablets',
-    hasButton: false,
   },
   {
     desktop: 'img/banner-accessories.png',
     alt: 'Accessories offer',
     link: '/accessories',
-    hasButton: false,
   },
 ];
 
@@ -80,9 +76,6 @@ export const PictureSlide = () => {
                 className={style['gadget-img']}
               />
             </picture>
-            {currentBanner.hasButton && (
-              <span className={style.orderBtn}>ORDER NOW</span>
-            )}
           </Link>
         </div>
 
