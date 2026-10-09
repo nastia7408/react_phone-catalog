@@ -10,7 +10,11 @@ export const NewModele = () => {
 
   return (
     <div className={style['new-modele']}>
-      <ProductsSlider title="Brand new models" products={newProducts} />
+      <ProductsSlider
+        title="Brand new models"
+        products={newProducts}
+        hasDiscount={false}
+      />
     </div>
   );
 };

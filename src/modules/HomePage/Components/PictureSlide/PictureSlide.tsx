@@ -1,24 +1,33 @@
 import classNames from 'classnames';
 import style from './PictureSlide.module.scss';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const BANNERS = [
   {
     desktop: 'img/banner.svg',
     mobile: 'img/banner-mobile.svg',
     alt: 'iPhone 14 Pro offer',
+    link: '/phones/apple-iphone-14-pro-128gb-deep-purple',
+    hasButton: true,
   },
   {
     desktop: 'img/banner-phones.png',
     alt: 'Phones offer',
+    link: '/phones',
+    hasButton: false,
   },
   {
     desktop: 'img/banner-tablets.png',
     alt: 'Tablets offer',
+    link: '/tablets',
+    hasButton: false,
   },
   {
     desktop: 'img/banner-accessories.png',
     alt: 'Accessories offer',
+    link: '/accessories',
+    hasButton: false,
   },
 ];
 
@@ -33,13 +42,7 @@ export const PictureSlide = () => {
     setCurrentIndex(prev => (prev - 1 + BANNERS.length) % BANNERS.length);
   };
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      handleNext();
-    }, 5000);
-
-    return () => clearInterval(timer);
-  }, []);
+  const currentBanner = BANNERS[currentIndex];
 
   return (
     <div className={style.pictureSlide}>
@@ -57,17 +60,22 @@ export const PictureSlide = () => {
         </button>
 
         <div className={style.bannerContent}>
-          <picture>
-            <source
-              media="(max-width: 639px)"
-              srcSet={BANNERS[currentIndex].mobile}
-            />
-            <img
-              src={BANNERS[currentIndex].desktop}
-              alt={BANNERS[currentIndex].alt}
-              className={style['gadget-img']}
-            />
-          </picture>
+          <Link to={currentBanner.link} className={style.bannerLink}>
+            <picture>
+              <source
+                media="(max-width: 639px)"
+                srcSet={BANNERS[currentIndex].mobile}
+              />
+              <img
+                src={BANNERS[currentIndex].desktop}
+                alt={BANNERS[currentIndex].alt}
+                className={style['gadget-img']}
+              />
+            </picture>
+            {currentBanner.hasButton && (
+              <span className={style.orderBtn}>ORDER NOW</span>
+            )}
+          </Link>
         </div>
 
         <button

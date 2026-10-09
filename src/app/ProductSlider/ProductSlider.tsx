@@ -11,9 +11,14 @@ import classNames from 'classnames';
 interface Props {
   title: string;
   products?: Product[];
+  hasDiscount?: boolean;
 }
 
-export const ProductsSlider = ({ title, products: customProducts }: Props) => {
+export const ProductsSlider = ({
+  title,
+  products: customProducts,
+  hasDiscount = true,
+}: Props) => {
   const dispatch = useAppDispatch();
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -75,6 +80,10 @@ export const ProductsSlider = ({ title, products: customProducts }: Props) => {
                 item.product.itemId === product.itemId ||
                 item.product.id === product.id,
             );
+            const showDiscount =
+              hasDiscount &&
+              product.fullPrice &&
+              product.price !== product.fullPrice;
 
             return (
               <div key={product.id} className={style.slide}>
@@ -103,7 +112,7 @@ export const ProductsSlider = ({ title, products: customProducts }: Props) => {
                       <p className={classNames(style['gadget-price'], 'h3')}>
                         ${product.price}
                       </p>
-                      {product.fullPrice > product.price && (
+                      {showDiscount && (
                         <p
                           className={classNames(
                             style['gadget-price-sale'],

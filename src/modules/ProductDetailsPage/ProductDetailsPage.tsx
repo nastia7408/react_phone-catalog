@@ -32,11 +32,21 @@ export const ProductDetailsPage = () => {
   const isInCart = cartItems.some(item => item.product.itemId === productId);
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [productId]);
+
+  useEffect(() => {
     if (!productId || !category) {
       return;
     }
 
-    setLoading(true);
+    if (!product) {
+      setLoading(true);
+    }
+
     setError(false);
 
     fetch(`${import.meta.env.BASE_URL}/api/${category}.json`)
@@ -66,6 +76,7 @@ export const ProductDetailsPage = () => {
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, productId]);
 
   const recommendedProducts = useMemo(() => {
@@ -76,25 +87,7 @@ export const ProductDetailsPage = () => {
     return [...filtered].sort(() => 0.5 - Math.random());
   }, [globalProducts, category, productId]);
 
-  const handleColorChange = (newColor: string) => {
-    if (!product || newColor === product.color) {
-      return;
-    }
-
-    const newProductId = `${product.namespaceId}-${product.capacity.toLowerCase()}-${newColor.toLowerCase()}`;
-
-    navigate(`/${category}/${newProductId}`);
-  };
-
-  const handleCapacityChange = (newCapacity: string) => {
-    if (!product || newCapacity === product.capacity) {
-      return;
-    }
-
-    const newProductId = `${product.namespaceId}-${newCapacity.toLowerCase()}-${product.color.toLowerCase()}`;
-
-    navigate(`/${category}/${newProductId}`);
-  };
+  const formatSlug = (str: string) => str.toLowerCase().replace(/\s+/g, '-');
 
   const handleFavoriteToggle = () => {
     if (catalogProduct) {
@@ -139,11 +132,7 @@ export const ProductDetailsPage = () => {
         <img src="img/icons/arrowrightdark.svg" alt="" />
         <p className="title-navigation">{product.name}</p>
       </div>
-      <div
-        className={style['back-button']}
-        onClick={() => navigate(-1)}
-        style={{ cursor: 'pointer' }}
-      >
+      <div className={style['back-button']} onClick={() => navigate(-1)}>
         <img
           src="img/icons/arrowleft.svg"
           alt="Back"
@@ -188,37 +177,45 @@ export const ProductDetailsPage = () => {
           </div>
           <div className={style['gadget-info-block-text-color']}>
             <div className={style['colors-block']}>
-              {product.colorsAvailable?.map((c: string) => (
-                <div
-                  key={c}
-                  className={`${style.color} ${style[c]} ${c === product.color ? style.active : ''}`}
-                  onClick={() => handleColorChange(c)}
-                  style={{ cursor: 'pointer' }}
-                />
-              ))}
+              {product.colorsAvailable?.map((c: string) => {
+                const targetId = `${product.namespaceId}-${formatSlug(product.capacity)}-${formatSlug(c)}`;
+                const isSelected = c === product.color;
+
+                return (
+                  <Link
+                    key={c}
+                    to={`/${category}/${targetId}`}
+                    className={`${style.color} ${style[formatSlug(c)]} ${isSelected ? style.active : ''}`}
+                  />
+                );
+              })}
             </div>
             <p className={classNames(style.text, 'small-text')}>
               Select capacity
             </p>
             <div className={style['capacity-block']}>
-              {product.capacityAvailable?.map((cap: string) => (
-                <button
-                  key={cap}
-                  className={`${classNames(style.capacity, 'body-text')} ${cap === product.capacity ? style.active : ''}`}
-                  onClick={() => handleCapacityChange(cap)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  {cap}
-                </button>
-              ))}
+              {product.capacityAvailable?.map((cap: string) => {
+                const targetId = `${product.namespaceId}-${formatSlug(cap)}-${formatSlug(product.color)}`;
+                const isSelected = cap === product.capacity;
+
+                return (
+                  <Link
+                    key={cap}
+                    to={`/${category}/${targetId}`}
+                    className={`${classNames(style.capacity, 'body-text')} ${isSelected ? style.active : ''}`}
+                  >
+                    {cap}
+                  </Link>
+                );
+              })}
             </div>
             <div className={style['cart-block']}>
               <div className={style['cart-block-price']}>
                 <p className={classNames(style.price, 'h2')}>
-                  {product.priceDiscount}
+                  ${product.priceDiscount}
                 </p>
                 <p className={classNames(style.sale, 'h3')}>
-                  {product.priceRegular}
+                  ${product.priceRegular}
                 </p>
               </div>
               <div className={style['buttons-block']}>

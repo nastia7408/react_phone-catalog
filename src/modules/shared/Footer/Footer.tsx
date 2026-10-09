@@ -28,7 +28,7 @@ export const Footer = () => {
             </li>
             <li className={style.nav__item}>
               <a
-                href="https://github.com/your-username"
+                href="https://github.com/nastia7408"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={classNames(style.nav__link, 'uppercase')}
@@ -38,7 +38,8 @@ export const Footer = () => {
             </li>
             <li className={style.nav__item}>
               <a
-                href="https://github.com/your-username"
+                // eslint-disable-next-line max-len
+                href="https://github.com/nastia7408/react_phone-catalog/blob/main/LICENSE"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={classNames(style.nav__link, 'uppercase')}

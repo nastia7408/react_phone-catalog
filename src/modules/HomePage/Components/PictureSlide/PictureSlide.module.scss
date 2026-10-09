@@ -97,6 +97,25 @@ $mobile-max: 639px;
   }
 }
 
+.orderBtn {
+  position: absolute;
+  left: 5%;
+  bottom: 7%;
+  padding:10px 23px;
+  border: 2px solid  #393939;
+  border-radius: 48px;
+  color: #f1f2f9;
+  font-weight: 400;
+  font-size: 12px;
+  background-color: #2a2a2a;
+  transition: all 0.3s ease;
+  z-index: 2;
+
+  &:hover {
+    background-color:#424242;
+  }
+}
+
 .pagination {
   display: flex;
   gap: 10px;
@@ -123,4 +142,10 @@ $mobile-max: 639px;
   height: 100%;
   object-fit: cover;
   display: block;
+  transform: none !important;
+  transition: none !important;
+
+  &:hover {
+    transform: none !important;
+  }
 }

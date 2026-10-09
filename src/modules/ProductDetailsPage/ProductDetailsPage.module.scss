@@ -26,7 +26,7 @@ $mobile-max: 639px;
   align-items: center;
   gap: 8px;
   margin-top: 40px;
-  cursor: pointer;
+
 
   &:hover {
     .back-arrow {
@@ -97,7 +97,7 @@ $mobile-max: 639px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+
   box-sizing: border-box;
 
   @media (max-width: $tablet-max) {
@@ -182,7 +182,7 @@ $mobile-max: 639px;
   box-sizing: border-box;
   border: #0f1121 solid 3px;
   outline: 2px solid #3b3e4a;
-  cursor: pointer;
+
   transition: outline 0.2s ease;
 
   &:hover {
@@ -259,13 +259,17 @@ $mobile-max: 639px;
 }
 
 .capacity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 32px;
   text-align: center;
+  text-decoration: none;
   color: #f1f2f9;
   border: #4a4d58 solid 1px;
   padding: 0 8px;
   background-color: transparent;
-  cursor: pointer;
+
 
   &:hover {
     border-color: #f1f2f9;
@@ -314,7 +318,7 @@ $mobile-max: 639px;
 
   text-align: center;
   border: none;
-  cursor: pointer;
+
   transition: background-color 0.2s ease;
 
   &:hover {
@@ -335,7 +339,7 @@ $mobile-max: 639px;
   align-items: center;
   justify-content: center;
   border: none;
-  cursor: pointer;
+
 
   &:hover {
     background-color: #4a4d58;
@@ -400,7 +404,7 @@ $mobile-max: 639px;
 
 .title2 {
   margin: 24px 0 16px;
- 
+
 }
 
 .recommended {

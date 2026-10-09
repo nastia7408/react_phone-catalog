@@ -46,6 +46,24 @@ textarea {
   font-family: Mont, sans-serif;
 }
 
+
+img {
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+
+button,
+a,
+select,
+input[type='button'],
+input[type='submit'] {
+  cursor: pointer;
+}
+
 html {
   width: 100%;
   overflow-x: hidden;
@@ -234,13 +252,5 @@ button {
   text-transform: capitalize;
   &:hover {
     color: #905bff;
-  }
-}
-
-img {
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: scale(1.1);
   }
 }
